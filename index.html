@@ -6,7 +6,21 @@
 
 </head>
 <body>
-hello
+<div id="content">
+  <ul id="log">
+  </ul>
+</div>
+<button type="button" id="btn">click me</button>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(function() {
+    $('#btn').click(function() {
+      $.getJSON( "/api/hello.json", function(data) {
+          var newMessageElement = $('<li/>').html(data.msg);
+          $('#log').append(newMessageElement);
+      });
+      });
+    });
+</script>
 </body>
 </html>
