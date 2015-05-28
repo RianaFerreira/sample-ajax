@@ -1,0 +1,18 @@
+{
+  "id":123,
+  "name": "Riana Ferreira",
+  "items":[
+    {
+      "id":1,
+      "url":"/api/items/1.json"
+    },
+    {
+      "id":2,
+      "url":"/api/items/2.json"
+    },
+    {
+      "id":3,
+      "url":"/api/items/3.json"
+    }
+  ]
+}
