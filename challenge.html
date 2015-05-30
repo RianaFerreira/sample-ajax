@@ -5,17 +5,37 @@
 <title>Ajax Sample</title>
 
 </head>
-<body>
-<div id="orders">
-</div>
-<button type="button" id="btn">Show my orders</button>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-/*Given order 123 exists when I click on the 'show my orders' then the system should display the order and all
-  of its items.
- */
+  <body>
+    <div id="orders"></div>
+    <button type="button" id="btn">Show my orders</button>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+      /*
+        Given order 123 exists when I click on the 'show my orders' then the system should    display the order and all of its items.
+      */
+      $(function(){
+        $('#btn').on('click', function(){
+          $.getJSON('/api/orders/123.json', function(data){
+            $('#orders').append("<p>Order Number: " + data.id + "</p>");
+            $('#orders').append("<p>Recipient: " + data.name + "</p>");
+            $('#orders').append("<ul></ul>")
 
+            for(i = 0; i < 3; i++) {
+              $('#orders ul').append('<li><a id=' + data.items[i].id + ' href="' + data.items[i].url + '" > Order Item ' +  data.items[i].id + '</a></li>');
+            }
 
-</script>
-</body>
+            $('a').on('click', function(e){
+              $this = $(this);       
+              $.getJSON($this.attr('href'), function(response){
+                $this.parent().append("<p> Name: " + response.name + "</p>");
+                $this.parent().append("<p> Price: " + response.price + "</p>");
+                $this.parent().append("<p> Quantity: " + response.qty + "</p>");
+              });
+              e.preventDefault();
+            });
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
